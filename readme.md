@@ -1,0 +1,1 @@
+Examples of embedding [Lab Interactives](http://concord-consortium.github.io/lab/).
