@@ -1,6 +1,8 @@
 var iframePhone,
     $interactiveIframe = $('#interactive-iframe'),
     graph;
+    graphData = [],
+    dataIndex = 0,
     graphSamplePeriod = 0.05;
 
 function setupGrapher(callback) {
@@ -8,9 +10,9 @@ function setupGrapher(callback) {
       title:  "Area versus Applied Pressure",
       xlabel:  "Model Time (ps)",
       ylabel: "Pressure Times Area (pN⋅nm)",
-      xmax:   100,
+      xmax:   1000,
       xmin:   0,
-      ymax:   2000,
+      ymax:   2500,
       ymin:   0,
       xTickCount: 4,
       yTickCount: 5,
@@ -75,7 +77,7 @@ function setupGrapher(callback) {
   }
 
   function updateGraph(props) {
-    graph.addPoints(updateGraphData(props));
+    graph.addPoint(updateGraphData(props));
   }
 
   function renderGraph() {
@@ -94,9 +96,10 @@ function setupGrapher(callback) {
   function updateGraphData(props) {
     var p = props.pressure;
         f = props.pressureTimesArea,
-        a = props.area;
-    graphData[0].push(f);
-    return [f];
+        a = props.area,
+        point = [dataIndex++, f];
+    graphData[0].push(point);
+    return point;
   }
 
   // Reset the graphData arrays to a specific length by passing in an index value,
@@ -108,9 +111,11 @@ function setupGrapher(callback) {
       for (i = 0, len = graphData.length; i < len; i++) {
         graphData[i].length = index;
       }
+      dataIndex = index;
       return index;
     } else {
       graphData = [[0]];
+      dataIndex = 0;
       return 0;
     }
   }
