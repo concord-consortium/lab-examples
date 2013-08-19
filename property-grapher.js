@@ -1,27 +1,26 @@
-var iframePhone,
-    $interactiveIframe = $('#interactive-iframe'),
-    graph;
-    graphData = [],
-    dataIndex = 0,
-    graphSamplePeriod = 0.05;
-
-function setupGrapher(callback) {
-  var graphOptions = {
-      title:  "Area versus Applied Pressure",
-      xlabel:  "Model Time (ps)",
-      ylabel: "Pressure Times Area (pN⋅nm)",
-      xmax:   1000,
-      xmin:   0,
-      ymax:   2500,
-      ymin:   0,
-      xTickCount: 4,
-      yTickCount: 5,
-      xFormatter: ".3r",
-      yFormatter: ".2r",
-      sample: graphSamplePeriod,
-      realTime: true,
-      fontScaleRelativeToParent: true
-    };
+(function () {
+  var iframePhone,
+      $interactiveIframe = $('#interactive-iframe'),
+      graph;
+      graphData = [],
+      dataIndex = 0,
+      graphSamplePeriod = 0.05,
+      graphOptions = {
+        title:  "Area versus Applied Pressure",
+        xlabel:  "Model Time (ps)",
+        ylabel: "Pressure Times Area (pN⋅nm)",
+        xmax:   1000,
+        xmin:   0,
+        ymax:   2500,
+        ymin:   0,
+        xTickCount: 4,
+        yTickCount: 5,
+        xFormatter: ".3r",
+        yFormatter: ".2r",
+        sample: graphSamplePeriod,
+        realTime: true,
+        fontScaleRelativeToParent: true
+      };
 
   // private functions
   function addEventHook(name, func, props) {
@@ -120,21 +119,23 @@ function setupGrapher(callback) {
     }
   }
 
-  // Intitialization
-  graphSamplePeriod = 1;
-  if (iframePhone) {
-    iframePhone.addListener('propertyValue', function(displayTimePerTick) {
-      graphSamplePeriod = displayTimePerTick;
-      graphOptions.sample = graphSamplePeriod;
-      renderGraph();
-    });
-    iframePhone.post({
-      'type': 'get',
-      'propertyName': 'displayTimePerTick'
-    });
+  function setupGrapher() {
+    graphSamplePeriod = 1;
+    if (iframePhone) {
+      iframePhone.addListener('propertyValue', function(displayTimePerTick) {
+        graphSamplePeriod = displayTimePerTick;
+        graphOptions.sample = graphSamplePeriod;
+        renderGraph();
+      });
+      iframePhone.post({
+        'type': 'get',
+        'propertyName': 'displayTimePerTick'
+      });
+    }
   }
-}
 
-iframePhone = new Lab.IFramePhone($interactiveIframe[0], function() {
-  setupGrapher();
-});
+  // Intitialization
+  iframePhone = new Lab.IFramePhone($interactiveIframe[0], function() {
+    setupGrapher();
+  });
+})();
