@@ -135,6 +135,6 @@ function setupGrapher(callback) {
   }
 }
 
-iframePhone = setupIframeListenerFor($interactiveIframe[0], function() {
+iframePhone = new Lab.IFramePhone($interactiveIframe[0], function() {
   setupGrapher();
 });
