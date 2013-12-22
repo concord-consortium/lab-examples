@@ -6,7 +6,7 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet" type="text/css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="http://lab.concord.org/version/0.6.4/lab/lab.iframe-phone.js"></script>
+    <script src="http://lab.dev.concord.org/lab/lab.iframe-phone.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300italic,400,300,700&amp;subset=latin,greek,latin-ext" rel="stylesheet" type="text/css">
     <style type="text/css">
       iframe#interactive-iframe {
@@ -29,7 +29,7 @@
       <p>
       Several interactives have multiple models. The interactive has a control, usually a radio button or pull down menu, which switches the model 
       being shown.  This example is embeds 
-      <a href="http://lab.concord.org/version/0.6.4/interactives.html#interactives/itsi/states-of-matter/atomic-movement-in-gases.json">
+      <a href="http://lab.dev.concord.org/interactives.html#interactives/itsi/states-of-matter/atomic-movement-in-gases.json">
         Atomic Movement in Gases</a>
       </p>
 
@@ -42,7 +42,7 @@
     <iframe id="interactive-iframe" width="565px" height="435px"
             frameborder="no" scrolling="no" allowfullscreen="true"
             webkitallowfullscreen="true" mozallowfullscreen="true"
-            src="http://lab.concord.org/version/0.6.4/embeddable.html#interactives/itsi/states-of-matter/atomic-movement-in-gases.json">
+            src="http://lab.dev.concord.org/embeddable.html#interactives/itsi/states-of-matter/atomic-movement-in-gases.json">
     </iframe>
     <div>
       Value of 'showing interactions':<span id="showing-interactions-value">unknown</span>
@@ -50,40 +50,9 @@
     </div>
     <script>
       // call this function when jQuery thinks the page is ready 
-      $(function(){
-          // Intitialization
-          var iframePhone = new Lab.IFramePhone($('#interactive-iframe')[0], function() {
-            console.log('iframePhone ready');
-            // the iframe-phone library doesn't support observing properties very well
-            // so instead a raw message listener is used here
-            window.addEventListener('message', function(message){
-              var messageData;
-
-              messageData = message.data;
-              if (typeof messageData === 'string') {
-                messageData = JSON.parse(messageData);
-              }
-              console.log("iframe message: type:" + messageData.type + " name:" + messageData.name);
-
-              if (messageData.type == 'propertyValue'){
-                if(messageData.name == 'showVDWLines'){
-                  $('#showing-interactions-value').html("" + messageData.values);
-                }
-              }
-            }, false);
-
-            // tell the interactive we want to observe the showVDWLines property
-            iframePhone.post({type: 'observe', propertyName: 'showVDWLines'});
-
-            var addListener = function (eventName) {
-              iframePhone.addDispatchListener(eventName + ".parentFrame", function(values){
-                console.log("got " + eventName);
-              })
-            };
-
-            addListener('willReset');
-            addListener('reset');
-          });
+      $(function() {
+        // Intitialization
+        var iframePhone = new Lab.IFramePhone($('#interactive-iframe')[0], modelLoadedCallback, connectedCallback);
 
         // handle links for showing and hiding interactions
         $('#show-interactions').click(function(){
@@ -91,7 +60,46 @@
         })
         $('#hide-interactions').click(function(){
           iframePhone.post({type: 'set', propertyName: 'showVDWLines', propertyValue: false});
-        })
+        });
+
+        // the iframe-phone library doesn't support observing properties very well
+        // so instead a raw message listener is used here
+        window.addEventListener('message', function(message) {
+          var messageData;
+
+          messageData = message.data;
+          if (typeof messageData === 'string') {
+            messageData = JSON.parse(messageData);
+          }
+          console.log("iframe message: type:" + messageData.type + " name:" + messageData.name);
+
+          if (messageData.type == 'propertyValue'){
+            if(messageData.name == 'showVDWLines'){
+              $('#showing-interactions-value').html("" + messageData.values);
+            }
+          }
+        }, false);
+
+        function connectedCallback() {
+          console.log('iframePhone connected');
+        }
+
+        function modelLoadedCallback() {
+          // Model-specific setup:
+          console.log('model loaded');
+
+          // tell the interactive we want to observe the showVDWLines property
+          iframePhone.post({type: 'observe', propertyName: 'showVDWLines'});
+
+          var addListener = function (eventName) {
+            iframePhone.addDispatchListener(eventName + ".parentFrame", function(values){
+              console.log("got " + eventName);
+            })
+          };
+
+          addListener('willReset');
+          addListener('reset');
+        }
 
         // Hints on how to set the currently loaded Model
         // on message 'loadModel' call controller.loadModel
