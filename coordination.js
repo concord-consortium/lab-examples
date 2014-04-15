@@ -1,29 +1,26 @@
 (function () {
-  var phones = {};
 
-  function setupPhone(id) {
-    setTimeout(function() {
-      var phone = phones[id];
+  var interactives = [],
+      interactiveIframes = document.querySelectorAll(".interactive");
 
-      phone.addDispatchListener('play', function() {
-        for (var phoneId in phones) {
-          if (phoneId == id) { continue; }
-          // Tell the model to pause
-          var phone = phones[phoneId];
-          phone.post({'type': 'stop'});
-        }
-      }, []);
-    }, 10);
+  for (var i=0; i < interactiveIframes.length; i++ ) {
+    interactives.push(new iframePhone.ParentEndpoint(interactiveIframes[i]));
   }
 
-  function createPhone(id) {
-    return new Lab.IFramePhone($(id)[0], function() {
-      setupPhone(id);
+  interactives.forEach(function(interactive){
+    interactive.addListener('modelLoaded', function(){
+      interactive.post('listenForDispatchEvent', {eventName: 'play.coordination'});
+      interactive.addListener('play.coordination', playListener.bind(interactive));
+    });
+  })
+
+  function playListener () {
+    var interactive = this;
+    interactives.forEach(function (otherInteractive){
+      if (otherInteractive != interactive) {
+        otherInteractive.post('stop');
+      }
     });
   }
 
-  for (var i = 1; i <= 3; i++) {
-    var id = '#interactive-iframe'+i;
-    phones[id] = createPhone(id);
-  }
 })();
