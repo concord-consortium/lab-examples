@@ -9,15 +9,15 @@ For more information see: http://lab.concord.org/ and https://github.com/concord
 1. Clone this repo and install the Ruby Gem dependencies
 
     $ cd lab-examples
-    $ bundle install --binstubs
+    $ bundle install
 
 2. In one shell start the Rack server
 
-    $ bin/rackup config.ru
+    $ rackup config.ru
 
 3. In a second shell start Guard
 
-    $ bin/guard
+    $ guard
 
 4. Open http://localhost:9292/index.html
 
