@@ -46,3 +46,6 @@ ul {
     ul li:hover {
       background-color: #ddd;
       cursor: pointer; }
+div.top {
+  float: right;
+}
