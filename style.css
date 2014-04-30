@@ -31,7 +31,8 @@ p {
   font-size: 1.0em;
   margin-left: 1.0em }
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  cursor: pointer; }
 ul {
   list-style-type: none;
   margin: 1em 1em;
