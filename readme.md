@@ -1,6 +1,6 @@
 [Examples](http://concord-consortium.github.io/lab-examples)
 showing different ways of embedding and interacting with
-[Lab Interactives](http://concord-consortium.github.io/lab/examples/interactives/interactives.html).
+[Lab Interactives](http://lab.concord.org/interactives.html).
 
 For more information see: http://lab.concord.org/ and https://github.com/concord-consortium/lab.
 
@@ -11,14 +11,9 @@ For more information see: http://lab.concord.org/ and https://github.com/concord
     $ cd lab-examples
     $ bundle install
 
-2. In one shell start the Rack server
+2. start the jekyll server
 
-    $ rackup config.ru
+    $ jekyll serve
 
-3. In a second shell start Guard
+3. Open [http://localhost:4000](http://localhost:4000)
 
-    $ guard
-
-4. Open http://localhost:9292/index.html
-
-You can now make changes in the code and you browser will automatically be updated.
