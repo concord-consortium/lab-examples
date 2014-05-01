@@ -9,7 +9,7 @@ no_index: true
 <ul>
 {% for child in site.pages %}
   {% unless child.no_index %}
-    <li><a href="{{ child.path }}">{{ child.title }}</a> | {{ child.no_index }} </li>
+    <li><a href="{{ child.path }}">{{ child.title }}</a></li>
   {% endunless %}
 {% endfor %}
 </ul>
