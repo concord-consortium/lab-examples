@@ -22,19 +22,19 @@ title: Observing and setting a property
 <script>
   // call this function when jQuery thinks the page is ready 
   $(function(){
-      // Intitialization
-      var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
+    // Intitialization
+    var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
 
-      interactive.addListener('modelLoaded', function() {
-        interactive.addListener('propertyValue', function(result){
-          if(result.name == 'selectedTemperature') {
-            $('#selected-temperature').html("" + result.value);
-          }
-        });
-      });
+    interactive.addListener('propertyValue', function(result){
+      if(result.name == 'selectedTemperature') {
+        $('#selected-temperature').html("" + result.value);
+      }
+    });
 
+    interactive.addListener('modelLoaded', function() {
       // tell the interactive we want to observe the selectedTemperature property
       interactive.post('observe', 'selectedTemperature');
+    });
 
     // add a listener to the set-temperature-0
     $('#set-temperature-0').click(function(){
