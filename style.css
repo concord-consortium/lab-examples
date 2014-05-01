@@ -50,3 +50,13 @@ ul {
 div.top {
   float: right;
 }
+iframe.inline {
+  display: inline-block; }
+div#graph {
+  display: inline-block;
+  vertical-align: top;
+  left-margin: 0.5em;
+  background-color: #ddf2ff;
+  border-radius: 0.25em;
+  width: 460px;
+  height: 375px; }

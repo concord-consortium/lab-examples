@@ -1,5 +1,5 @@
 (function () {
-  var iframePhone,
+  var interactive,
       $interactiveIframe = $('#interactive-iframe'),
       graph;
       graphData = [],
@@ -23,21 +23,19 @@
       };
 
   // private functions
+  // this shouldn't be called until the model has loaded
   function addEventHook(name, func, props) {
     var privateName = name + '.graph';
-    if (iframePhone) {
-      iframePhone.addDispatchListener(privateName,func, props);
-    }
+    interactive.post('listenForDispatchEvent', {eventName: privateName, properties: props});
+    interactive.addListener(privateName, func);
   }
 
   function removeEventHook(name) {
     var privateName = name + '.graph';
-    if (iframePhone) {
-      iframePhone.removeDispatchListener(privateName);
-    }
+    interactive.post('removeListenerForDispatchEvent', privateName);
   }
 
-  function addIframeEventListeners() {
+  function addInteractiveEventListeners() {
     addEventHook("tick", function(props) {
       updateGraph(props);
     }, ['pressure', 'pressureTimesArea', 'area']);
@@ -86,9 +84,9 @@
     if (graph) {
       graph.reset('#graph', graphOptions);
     } else {
-      graph = Lab.grapher.Graph('#graph', graphOptions);
+      graph = LabGrapher('#graph', graphOptions);
     }
-    addIframeEventListeners();
+    addInteractiveEventListeners();
   }
 
   // Add another sample of data to the graphData array of arrays.
@@ -121,21 +119,19 @@
 
   function setupGrapher() {
     graphSamplePeriod = 1;
-    if (iframePhone) {
-      iframePhone.addListener('propertyValue', function(displayTimePerTick) {
-        graphSamplePeriod = displayTimePerTick;
+    interactive.addListener('propertyValue', function(response) {
+      if(response.name == 'displayTimePerTick') {
+        graphSamplePeriod = response.value;
         graphOptions.sample = graphSamplePeriod;
         renderGraph();
-      });
-      iframePhone.post({
-        'type': 'get',
-        'propertyName': 'displayTimePerTick'
-      });
-    }
+      }
+    });
+    interactive.post('get', 'displayTimePerTick');
   }
 
   // Intitialization
-  iframePhone = new Lab.IFramePhone($interactiveIframe[0], function() {
+  interactive = new iframePhone.ParentEndpoint($interactiveIframe[0]);
+  interactive.addListener('modelLoaded', function(){
     setupGrapher();
   });
 })();
