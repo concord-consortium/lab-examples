@@ -1,0 +1,26 @@
+---
+layout: default
+graph: true
+title: Advanced Graphing property from Lab interactive
+extra_head_tags: |
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+  <link href='http://concord-consortium.github.io/lab-grapher/css/lab-grapher.css' rel='stylesheet' type='text/css'>
+  <script src='http://d3js.org/d3.v3.min.js' type='text/javascript'></script>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'></script>
+  <script src='http://concord-consortium.github.io/lab-grapher/dist/lab-grapher.js' type='text/javascript'></script>
+---
+<p>
+  Demonstrates embedding
+  <a href="http://lab.concord.org/version/0.5.12/interactives.html#interactives/basic-examples/area-versus-applied-pressure.json">Area versus Applied Pressure</a>
+  Interactive and receiving callbacks in main page with specific model properties
+  initiated by model tick events in the embedded Interactive.
+  This includes support for rewinding and replay an interactive
+</p>
+<iframe id="interactive-iframe" class="inline" width="460px" height="375px"
+        frameborder="no" scrolling="no" allowfullscreen="true"
+        webkitallowfullscreen="true" mozallowfullscreen="true"
+        src="http://lab.concord.org/embeddable.html#interactives/basic-examples/area-versus-applied-pressure.json">
+</iframe>
+<div id='graph' class="graph"></div>
+<script src="http://lab.dev.concord.org/vendor/iframe-phone/iframe-phone.js"></script>
+<script src="property-grapher-advanced.js"></script>
