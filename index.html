@@ -1,15 +1,15 @@
 ---
 layout: default
 title: Examples of embedding Lab Interactives
+no_index: true
 ---
 <p>
   Repository: <a href="https://github.com/concord-consortium/lab-examples">github.com/concord-consortium/lab-examples</a>
 </p>
 <ul>
-  <li><a href="simple-embed.html">Embedded Lab interactive</a></li>
-  <li><a href="embed-with-property-listener.html">Embedded Lab interactive with property listener callback</a></li>
-  <li><a href="embed-with-observe-and-set.html">Embedded Lab interactive observing a property and setting a property</a></li>
-  <li><a href="embed-multiple-with-coordination.html">Embedded Multiple Lab interactives - only one plays at a time</a></li>
-  <li><a href="embed-with-snapshot.html">Embedded Interactive with Snapshot</a></li>
-  <li><a href="embed-empty-send-json.html">Embedded empty Lab interactive waiting for Interactive JSON to be sent using iframe-phone</a></li>
+{% for child in site.pages %}
+  {% unless child.no_index %}
+    <li><a href="{{ child.path }}">{{ child.title }}</a> | {{ child.no_index }} </li>
+  {% endunless %}
+{% endfor %}
 </ul>
