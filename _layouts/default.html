@@ -7,13 +7,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300italic,400,300,700&amp;subset=latin,greek,latin-ext" rel="stylesheet" type="text/css">
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
     <link href="{{site.baseurl}}/style.css" rel="stylesheet" type="text/css">
-    {{ if page.graph }}
-      <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-      <link href='http://concord-consortium.github.io/lab-grapher/css/lab-grapher.css' rel='stylesheet' type='text/css'>
-      <script src='http://d3js.org/d3.v3.min.js' type='text/javascript'></script>
-      <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'></script>
-      <script src='http://concord-consortium.github.io/lab-grapher/dist/lab-grapher.js' type='text/javascript'></script>
-    {{ endif }}
+    {{ page.extra_head_tags }}
   </head>
   <body>
   	<div class="top">
