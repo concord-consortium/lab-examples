@@ -7,7 +7,7 @@ no_index: true
   Repository: <a href="https://github.com/concord-consortium/lab-examples">github.com/concord-consortium/lab-examples</a>
 </p>
 <ul>
-{% for child in site.pages %}
+{% for child in (site.pages | sort: 'path') %}
   {% unless child.no_index %}
     <li><a href="{{ child.path }}">{{ child.title }}</a> - {{ child.description }}</li>
   {% endunless %}
