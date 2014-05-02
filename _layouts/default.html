@@ -6,14 +6,14 @@
     <title>{{ page.title }}</title>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300italic,400,300,700&amp;subset=latin,greek,latin-ext" rel="stylesheet" type="text/css">
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="{{site.baseurl}}/style.css" rel="stylesheet" type="text/css">
+    <link href="{{site.github.url}}/style.css" rel="stylesheet" type="text/css">
     {{ page.extra_head_tags }}
   </head>
   <body>
   	<div class="top">
       <header>
-        <div class="sitename"><a href ="{{site.baseurl}}/">Lab Examples</a></div>
-        <a href="https://github.com/{{site.github_repo}}/blob/gh-pages/{{page.path}}" class="view-source">View page on GitHub</a>
+        <div class="sitename"><a href ="{{site.github.url}}/">Lab Examples</a></div>
+        <a href="{{ site.github.repository_url }}/blob/gh-pages/{{page.path}}" class="view-source">View page on GitHub</a>
       </header>
     </div>
 
