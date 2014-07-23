@@ -176,7 +176,7 @@ $(function () {
             "onPropertyChange('isPlayable', setButtonState);",
             "onPropertyChange('isStopped', setButtonState);",
             "onPropertyChange('hasPlayed', setButtonState);",
-            // "setButtonState();",
+            "setButtonState();",
             // "onPropertyChange('sensorName', function() {",
             // "  if (get('sensorName') && !get('isNewRunInProgress')) {",
             // "    setGraphRange();",
@@ -189,7 +189,7 @@ $(function () {
             // "     setComponentDisabled('start-button',true);",
             // "   }",
             // "});",
-            // "onPropertyChange('collectionTime', setGraphRange);",
+            "onPropertyChange('collectionTime', setGraphRange);",
             // "onPropertyChange('durationEnabled', function(){ setComponentDisabled('duration-slider', !(get('durationEnabled'))); });",
             // "setGraphRange();"
           ]
@@ -261,41 +261,6 @@ $(function () {
         },
         {
           "type": "button",
-          "id": "clear-button",
-          "text": "Clear",
-          "tooltip": "Clear the sensor data.",
-          "action": [
-            "clearDataSet('sensor-dataset');"
-          ]
-        },
-        // {
-        //   "type": "slider",
-        //   "id": "duration-slider",
-        //   "min": 1,
-        //   "max": 30,
-        //   "displayValue": "return format('.0f')(value)",
-        //   "labels": [
-        //     {
-        //       "value": 1,
-        //       "label": "1"
-        //     },
-        //     {
-        //       "value": 30,
-        //       "label": "30"
-        //     }
-        //   ],
-        //   "steps": 29,
-        //   "width": "8.5em",
-        //   "title": "Duration of Exp. (s)",
-        //   "property": "experimentDuration"
-        // },
-        // {
-        //   "type": "checkbox",
-        //   "id": "duration-enabled-checkbox",
-        //   "property": "durationEnabled"
-        // },
-        {
-          "type": "button",
           "id": "start-button",
           "text": "Start",
           "tooltip": "Start the experiment run.",
@@ -315,7 +280,7 @@ $(function () {
       "template": [
         {
           "id": "above",
-          "top": "model.top",
+          "top": "model.bottom",
           "padding-top": "0em",
           "bottom": "below.top",
           "padding-bottom": "2.5em",
@@ -332,7 +297,7 @@ $(function () {
       ],
       "layout": {
         "above": ["sensorGraph"],
-        "below": ["clear-button"]
+        "below": ["stop-button", "start-button"]
       }
     });
     console.log("Interactive JSON sent.");
