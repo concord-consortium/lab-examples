@@ -20,7 +20,7 @@ $(function () {
   };
 
   var setupCoordination = function() {
-    var events = ['sampleAdded', 'sampleRemoved'],
+    var events = ['sampleAdded', 'sampleRemoved', 'dataReset'],
         i;
     for (i = 0; i < events.length; i++) {
       _registerRelay(events[i]);
@@ -67,13 +67,13 @@ $(function () {
         {
           "name": "prediction-dataset",
           "properties": [
-            "time",
+            "predictionTime",
             "prediction"
           ],
           "streamDataFromModel": false,
           "clearOnModelReset": false,
           "initialData": {
-            "time": [],
+            "predictionTime": [],
             "prediction": []
           }
         }
@@ -97,7 +97,7 @@ $(function () {
             "prediction"
           ],
           "xProperty": [
-            "time"
+            "predictionTime"
           ],
           "enableSelectionButton": false,
           "enableDrawButton": true,
@@ -169,6 +169,7 @@ $(function () {
           "name": "sensor-dataset",
           "properties": [
             "time",
+            "predictionTime",
             "prediction",
             "sensor"
           ],
@@ -176,6 +177,7 @@ $(function () {
           "clearOnModelReset": false,
           "initialData": {
             "time": [],
+            "predictionTime": [],
             "prediction": [],
             "sensor": []
           }
@@ -201,6 +203,7 @@ $(function () {
             "sensor"
           ],
           "xProperty": [
+            "predictionTime",
             "time"
           ],
           "enableSelectionButton": false,
