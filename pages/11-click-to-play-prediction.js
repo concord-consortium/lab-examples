@@ -29,10 +29,13 @@
 
   window.connectPredictionToSensor = function (pred_dom, sensor_dom) {
     var predictionPhone = phones[pred_dom],
-        sensorPhone     = phones[sensor_dom];
+        sensorPhone     = phones[sensor_dom],
+        haveSeenEvents  = false;
 
     var _registerRelay = function(eventName) {
         predictionPhone.addListener("prediction-dataset-"+eventName, function(evt) {
+          haveSeenEvents = true;
+          console.log("relaying: ", eventName, evt);
           sensorPhone.post('sendDatasetEvent', {eventName: eventName, datasetName: 'sensor-dataset', data: evt.data });
         });
         predictionPhone.post('listenForDatasetEvent', {eventName: eventName, datasetName: 'prediction-dataset'});
@@ -46,7 +49,21 @@
       }
     };
 
+    var setupPeriodicSync = function() {
+        predictionPhone.addListener("dataset", function(evt) {
+          console.log("dataset received: ", evt);
+          sensorPhone.post('sendDatasetEvent', {eventName: 'dataReset', datasetName: 'sensor-dataset', data: evt.value.initialData });
+        });
+        setInterval(function() {
+          if (haveSeenEvents) {
+            predictionPhone.post('getDataset', 'prediction-dataset');
+            haveSeenEvents = false;
+          }
+        }, 10000);
+    };
+
     setupCoordination();
+    setupPeriodicSync();
   };
 })();
 
