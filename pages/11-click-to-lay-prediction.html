@@ -7,16 +7,21 @@ description: |
   Transferring graph data from one interactive to another.
 ---
 <style>
-  .error .unavailable {
+  .error.unavailable {
     display: none;
   }
 
-  .model_image .unavailable {
+  .model_image.unavailable {
     display: none;
   }
 
-  .model_interactive .unavailable {
+  .model_interactive.unavailable {
     display: none;
+  }
+
+  .model_interactive, .model_interactive iframe {
+    width: 600px;
+    height: 350px;
   }
   .click_to_play {
     position: absolute;
@@ -26,7 +31,7 @@ description: |
     bottom: 0;
     cursor: pointer;
   }
- .click_to_play .unavailable {
+ .click_to_play.unavailable {
     display: none;
     cursor: auto;
   }

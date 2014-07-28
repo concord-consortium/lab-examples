@@ -28,14 +28,8 @@
   var log     = function(msg) { if(console && verbose) { console.log(msg); }};
 
   window.connectPredictionToSensor = function (pred_dom, sensor_dom) {
-
-    var predictionPhone = new iframePhone.ParentEndpoint(pred_dom, function () {
-      log("Connection with prediction Lab iframe established.");
-    });
-
-    var sensorPhone = new iframePhone.ParentEndpoint(sensor_dom, function () {
-      log("Connection with sensor Lab iframe established.");
-    });
+    var predictionPhone = phones[pred_dom],
+        sensorPhone     = phones[sensor_dom];
 
     var predictionModelLoaded = false,
         sensorModelLoaded = false;
@@ -48,7 +42,7 @@
     };
 
     var setupCoordination = function() {
-      var events = ['sampleAdded', 'sampleRemoved'],
+      var events = ['sampleAdded', 'sampleRemoved', 'dataReset'],
           i;
       for (i = 0; i < events.length; i++) {
         _registerRelay(events[i]);
@@ -70,7 +64,7 @@
       });
     };
 
-    initializeInteractives();
+    setupCoordination();
   };
 })();
 
@@ -78,6 +72,7 @@
 
 function setupClickToPlay(interactive_id, image_id, click_id) {
   var interactive_url = $(interactive_id).attr("data-interactive-url");
+  var id = interactive_id + " iframe";
   // set up click-to-play
   $(click_id).removeClass('unavailable');
   $(image_id + " .error").addClass('unavailable');
@@ -91,17 +86,19 @@ function setupClickToPlay(interactive_id, image_id, click_id) {
     $(image_id).addClass('unavailable');
     $(click_id).addClass('unavailable');
     setTimeout(function() {
-      var id = interactive_id + " iframe";
       // FIXME! Use the correct url.
       $(id).attr('src', interactive_url);
       // Create the phone for this model.
       phones[id] = window.createPhone(id);
     }, 10);
   });
+
+  phones[id] = window.createPhone(id);
 }
 
 $(document).ready(function() {
   setupClickToPlay("#model_interactive_embeddable__diy__sensor_36521", "#model_image_embeddable__diy__sensor_36521", "#click_to_play_embeddable__diy__sensor_36521");
   setupClickToPlay("#model_interactive_embeddable__diy__sensor_36522", "#model_image_embeddable__diy__sensor_36522", "#click_to_play_embeddable__diy__sensor_36522");
+  connectPredictionToSensor("#model_interactive_embeddable__diy__sensor_36521 iframe", "#model_interactive_embeddable__diy__sensor_36522 iframe");
 });
 
