@@ -50,8 +50,8 @@
     };
 
     var setupPeriodicSync = function() {
+      // periodically send the complete prediction dataset over
         predictionPhone.addListener("dataset", function(evt) {
-          console.log("dataset received: ", evt);
           sensorPhone.post('sendDatasetEvent', {eventName: 'dataReset', datasetName: 'sensor-dataset', data: evt.value.initialData });
         });
         setInterval(function() {
@@ -60,6 +60,11 @@
             haveSeenEvents = false;
           }
         }, 10000);
+
+      // Also send the complete prediction dataset if the sensor interactive is loaded/reset
+      sensorPhone.addListener("modelLoaded", function(evt) {
+        predictionPhone.post('getDataset', 'prediction-dataset');
+      });
     };
 
     setupCoordination();
