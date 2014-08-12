@@ -3,65 +3,10 @@ layout: default
 title: Click to Play Prediction and Sensor Interaction.
 extra_head_tags: |
   <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'></script>
+  <link href="11-click-to-play-prediction.css" rel="stylesheet" type="text/css">
 description: |
   Transferring graph data from one interactive to another.
 ---
-<style>
-  .error.unavailable {
-    display: none;
-  }
-
-  .model_image.unavailable {
-    display: none;
-  }
-
-  .model_interactive.unavailable {
-    display: none;
-  }
-
-  .model_interactive, .model_interactive iframe {
-    width: 600px;
-    height: 350px;
-  }
-  .click_to_play {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    cursor: pointer;
-  }
- .click_to_play.unavailable {
-    display: none;
-    cursor: auto;
-  }
-  .click_to_play .background:hover {
-    opacity: 0.9;
-  }
-  .click_to_play .background {
-    background-color: white;
-    opacity: 0.75;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  .click_to_play .text{
-    text-align: center;
-    font-size: 3em;
-    margin-top: 3em;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  .container_element {
-    width: 600px;
-  }
-   
-</style>
 <div class="container_element" id="item_page_element_302008">
   <div id="item_embeddable__diy__sensor_36521">
     <div class="content" id="details_embeddable__diy__sensor_36521" style="position: relative;">
@@ -73,7 +18,7 @@ description: |
         <div class="background"></div>
         <div class="text">Click here to start the graph.</div>
       </div>
-      <div class="model_interactive unavailable" id="model_interactive_embeddable__diy__sensor_36521" data-interactive-url="http://lab.concord.org/embeddable-dev.html#interactives/itsi/sensor/prediction-prediction.json">
+      <div class="model_interactive unavailable" id="model_interactive_embeddable__diy__sensor_36521" data-interactive-url="http://lab.concord.org/embeddable.html#interactives/itsi/sensor/prediction-prediction.json">
         <iframe allowfullscreen="true" class="interactive" frameborder="no" id="interactive_iframe_embeddable__diy__sensor_36521" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
       </div>
     </div>
@@ -91,7 +36,7 @@ description: |
         <div class="background"></div>
         <div class="text">Click here to start the graph.</div>
       </div>
-      <div class="model_interactive unavailable" id="model_interactive_embeddable__diy__sensor_36522" data-interactive-url="http://lab.concord.org/embeddable-dev.html#interactives/itsi/sensor/sensor-connector.json">
+      <div class="model_interactive unavailable" id="model_interactive_embeddable__diy__sensor_36522" data-interactive-url="http://lab.concord.org/embeddable.html#interactives/itsi/sensor/sensor-connector.json">
         <iframe allowfullscreen="true" class="interactive" frameborder="no" id="interactive_iframe_embeddable__diy__sensor_36522" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
       </div>
   </div>
