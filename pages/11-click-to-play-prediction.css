@@ -22,7 +22,7 @@
   bottom: 0;
   cursor: pointer;
 }
-click_to_play.unavailable {
+.click_to_play.unavailable {
   display: none;
   cursor: auto;
 }
