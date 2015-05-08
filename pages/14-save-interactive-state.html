@@ -21,17 +21,18 @@ description: |
 
 <script>
   // Call this function when jQuery thinks the page is ready.
+  var interactive;
   $(function () {
     // Intitialization.
-    var phone = new iframePhone.ParentEndpoint($('#interactive-iframe')[0], function () {
+    interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0], function () {
       console.log("Connection with Lab iframe established.");
     });
 
     $('#get-json').click(function () {
-      phone.addListener('interactiveState', function(content) {
+      interactive.addListener('interactiveState', function(content) {
         console.log(JSON.stringify(content, null, 2));
       });
-      phone.post('getInteractiveState');
+      interactive.post('getInteractiveState');
     })
   });
 </script>

@@ -17,14 +17,15 @@ description: |
 
 <script>
   // Call this function when jQuery thinks the page is ready.
+  var interactive;
   $(function () {
     // Intitialization.
-    var phone = new iframePhone.ParentEndpoint($('#interactive-iframe')[0], function () {
+    interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0], function () {
       console.log("Connection with Lab iframe established.");
     });
 
     $('#send-json').click(function () {
-      phone.post("loadInteractive", {
+      interactive.post("loadInteractive", {
         "title": "Oil and Water",
         "publicationStatus": "sample",
         "subtitle": "Explore how polar and non-polar substances interact.",

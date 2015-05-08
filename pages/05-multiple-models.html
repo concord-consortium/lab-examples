@@ -27,9 +27,10 @@ These two features continue to work even after the model is switched from 'Gas 1
 </iframe>
 <script>
   // call this function when jQuery thinks the page is ready
+  var interactive;
   $(function(){
     // Intitialization
-    var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
+    interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
 
     // handle links for showing and hiding interactions
     $('#show-interactions').click(function(){

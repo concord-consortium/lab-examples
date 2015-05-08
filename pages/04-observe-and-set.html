@@ -17,9 +17,10 @@ description: |
 </iframe>
 
 <script>
+  var interactive;
   $(function(){
     // Intitialization
-    var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
+    interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
 
     interactive.addListener('propertyValue', function(result){
       if(result.name == 'selectedTemperature') {

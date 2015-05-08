@@ -1,6 +1,6 @@
+var interactive;
 (function () {
-  var interactive,
-      $interactiveIframe = $('#interactive-iframe'),
+  var $interactiveIframe = $('#interactive-iframe'),
       graph;
       graphData = [],
       dataIndex = 0,
