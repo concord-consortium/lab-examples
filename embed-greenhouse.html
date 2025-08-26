@@ -1,0 +1,51 @@
+---
+layout: default
+title: Observing and controlling greenhouse interactive
+---
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="https://lab.concord.org/vendor/iframe-phone/iframe-phone.js"></script>
+<p>
+  Demonstrates embedding a new Greenhouse interactive.
+</p>
+<iframe id="interactive-iframe" width="724px" height="439px"
+        frameborder="no" scrolling="no" allowfullscreen="true"
+        webkitallowfullscreen="true" mozallowfullscreen="true"
+        src="https://lab.concord.org/test-deploy/branch/greenhouse-effect/embeddable.html#interactives/lucas/greenhouse-effect.json">
+</iframe>
+<div>
+  Value of inside temperature: <span id="inside-temperature">unknown</span>
+</div>
+<div>
+  <a id="switch-glass">Switch to Glass</a>
+</div>
+<div>
+  <a id="switch-brick">Switch to Brick</a>
+</div>
+
+<script>
+  // call this function when jQuery thinks the page is ready 
+  $(function(){
+    // Initialization
+    var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
+
+    interactive.addListener('propertyValue', function(result){
+      if(result.name == 'insideAirAverageTemperature') {
+        $('#inside-temperature').html("" + result.value);
+      }
+    });
+
+    interactive.addListener('modelLoaded', function() {
+      // tell the interactive we want to observe the selectedTemperature property
+      interactive.post('observe', 'insideAirAverageTemperature');
+    });
+
+    // Switch which model the interactive is using
+    $('#switch-glass').click(function(){
+      interactive.post('loadModel', {modelId: 'glass'});
+    })
+    $('#switch-brick').click(function(){
+      interactive.post('loadModel', {modelId: 'brick'});
+    })
+
+  });
+</script>
