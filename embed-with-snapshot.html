@@ -3,22 +3,24 @@ layout: default
 title: Snaphot Lab Interactive
 ---
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="http://shutterbug.herokuapp.com//shutterbug/shutterbug.js" type="text/javascript"></script>
+<script src="https://lab.concord.org/vendor/shutterbug/shutterbug.js" type="text/javascript"></script>
 <p>
   Example embedding an interactive and taking a snapshot of it
 </p>
 <iframe width="568px" height="433px"
         frameborder="no" scrolling="no" allowfullscreen="true"
         webkitallowfullscreen="true" mozallowfullscreen="true"            
-        src="http://lab.concord.org/embeddable.html#interactives/basic-examples/area-versus-applied-pressure.json">
+        src="https://lab.concord.org/embeddable.html#interactives/basic-examples/area-versus-applied-pressure.json">
 </iframe>
 <button class='shutterbug'>Snapshot</button>
 <div id="snapshot-image"></div>
 <script type="text/javascript">
   $(document).ready(function(e) {
     $("button.shutterbug").click(function(e) {
-      var bug    = new Shutterbug('iframe','#snapshot-image',null,"xxyyz");
-      bug.getDomSnapshot();
+      Shutterbug.snapshot({
+        selector: 'iframe',
+        dstSelector: '#snapshot-image'        
+      })
     });
   });
 </script>

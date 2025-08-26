@@ -1,8 +1,8 @@
-[Examples](http://concord-consortium.github.io/lab-examples)
+[Examples](https://concord-consortium.github.io/lab-examples)
 showing different ways of embedding and interacting with
-[Lab Interactives](http://lab.concord.org/interactives.html).
+[Lab Interactives](https://lab.concord.org/interactives.html).
 
-For more information see: http://lab.concord.org/ and https://github.com/concord-consortium/lab.
+For more information see: https://lab.concord.org/ and https://github.com/concord-consortium/lab.
 
 ## Development
 

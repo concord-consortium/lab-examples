@@ -130,6 +130,9 @@
   }
 
   // Intitialization
+  // There are timing issues here. I think they are fixed by newer versions of iframePhone.
+  // If the iframe is loaded before the endpoint is setup, then the endpoint won't catch 
+  // the "hello" message, from the iframe.
   interactive = new iframePhone.ParentEndpoint($interactiveIframe[0]);
   interactive.addListener('modelLoaded', function(){
     setupGrapher();

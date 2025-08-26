@@ -1,5 +1,5 @@
 safe: true
 lsi: false
-pygments: true
+highlighter: rouge
 baseurl: /lab-examples
 github_repo: concord-consortium/lab-examples
