@@ -3,3 +3,7 @@ lsi: false
 highlighter: rouge
 baseurl: /lab-examples
 github_repo: concord-consortium/lab-examples
+
+# For some reason a style.scss file is being picked up in this folder
+exclude:
+  - assets/css/
