@@ -1,0 +1,95 @@
+---
+layout: default
+title: Wall Zoom Interactive
+---
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="https://lab.concord.org/vendor/iframe-phone/iframe-phone.js"></script>
+<p>
+  Demonstrates embedding a new Greenhouse interactive.
+</p>
+<!-- src="http://localhost:9292/embeddable.html#interactives/lucas/wall-zoom.json"> -->
+<iframe id="interactive-iframe" width="724px" height="439px"
+        frameborder="no" scrolling="no" allowfullscreen="true"
+        webkitallowfullscreen="true" mozallowfullscreen="true"
+        src="https://lab.concord.org/test-deploy/branch/wall-zoom/embeddable.html#interactives/lucas/wall-zoom.json">
+</iframe>
+<div>
+  <a id="start">Start the Model</a>
+</div>
+<div>
+  Value of inside temperature: <span id="inside-temperature">unknown</span>
+</div>
+<div>
+  <a id="switch-glass">Switch to Glass</a>
+</div>
+<div>
+  <a id="switch-brick">Switch to Brick</a>
+</div>
+<div>
+  <label for="sun-angle-slider">Sun Angle</label>
+  <input type="range" id="sun-angle-slider" name="sun-angle-slider" min="0" max="90" value="45">
+</div>
+<div>
+  <label for="outside-air-slider">Outside Air Temperature</label>
+  <input type="range" id="outside-air-slider" name="outside-air-slider" min="0" max="2000" value="1000">
+</div>
+<!-- <div>
+  <label for="sun-intensity-slider">Sun Intensity</label>
+  <input type="range" id="sun-intensity-slider" name="sun-intensity-slider" min="0" max="100" value="50">
+</div> -->
+<div>
+  <label for="ke-shading-checkbox">KE Shading</label>
+  <input type="checkbox" id="ke-shading-checkbox" name="ke-shading-checkbox">
+</div>
+
+<script>
+  // call this function when jQuery thinks the page is ready 
+  $(function(){
+    // Initialization
+    var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
+
+    interactive.addListener('propertyValue', function(result){
+      if(result.name == 'insideAirAverageTemperature') {
+        $('#inside-temperature').html("" + result.value);
+      }
+    });
+
+    interactive.addListener('modelLoaded', function() {
+      // tell the interactive we want to observe the selectedTemperature property
+      interactive.post('observe', 'insideAirAverageTemperature');
+    });
+
+    $('#start').click(function(){
+      interactive.post('play');
+    })
+
+    // Switch which model the interactive is using
+    $('#switch-glass').click(function(){
+      interactive.post('loadModel', {modelId: 'glass'});
+    })
+    $('#switch-brick').click(function(){
+      interactive.post('loadModel', {modelId: 'brick'});
+    })
+
+    $('#sun-angle-slider').on('input change', function() {
+      var sunAngle = $(this).val();
+      interactive.post('set', { name: 'sunAngle', value: parseFloat(sunAngle) });
+    });
+
+    $('#outside-air-slider').on('input change', function() {
+      var outsideAirTemperature = $(this).val();
+      interactive.post('set', { name: 'outsideAirTemperature', value: parseFloat(outsideAirTemperature) });
+    });
+
+    // $('#sun-intensity-slider').on('input change', function() {
+    //   var sunIntensity = $(this).val();
+    //   interactive.post('set', { name: 'sunIntensity', value: parseFloat(sunIntensity) });
+    // });
+
+    $('#ke-shading-checkbox').on('input change', function() {
+      var keShading = $(this).is(':checked');
+      interactive.post('set', { name: 'keShading', value: keShading });
+    });
+
+  });
+</script>
