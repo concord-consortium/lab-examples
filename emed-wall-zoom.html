@@ -7,11 +7,11 @@ title: Wall Zoom Interactive
 <p>
   Demonstrates embedding a new Greenhouse interactive.
 </p>
-<!-- src="http://localhost:9292/embeddable.html#interactives/lucas/wall-zoom.json"> -->
 <iframe id="interactive-iframe" width="724px" height="439px"
         frameborder="no" scrolling="no" allowfullscreen="true"
         webkitallowfullscreen="true" mozallowfullscreen="true"
-        src="https://lab.concord.org/version/wall-zoom-2025-09-02.1/embeddable.html#interactives/lucas/wall-zoom.json">
+        src="https://lab.concord.org/version/wall-zoom-2025-09-03.0/embeddable.html#interactives/lucas/wall-zoom.json">
+        <!-- src="http://localhost:9292/embeddable.html#interactives/lucas/wall-zoom.json"> -->
 </iframe>
 <div>
   <a id="start">Start the Model</a>
@@ -33,10 +33,10 @@ title: Wall Zoom Interactive
   <label for="outside-air-slider">Outside Air Temperature</label>
   <input type="range" id="outside-air-slider" name="outside-air-slider" min="0" max="2000" value="1000">
 </div>
-<!-- <div>
+<div>
   <label for="sun-intensity-slider">Sun Intensity</label>
   <input type="range" id="sun-intensity-slider" name="sun-intensity-slider" min="0" max="100" value="50">
-</div> -->
+</div>
 <div>
   <label for="ke-shading-checkbox">KE Shading</label>
   <input type="checkbox" id="ke-shading-checkbox" name="ke-shading-checkbox">
@@ -81,10 +81,10 @@ title: Wall Zoom Interactive
       interactive.post('set', { name: 'outsideAirTemperature', value: parseFloat(outsideAirTemperature) });
     });
 
-    // $('#sun-intensity-slider').on('input change', function() {
-    //   var sunIntensity = $(this).val();
-    //   interactive.post('set', { name: 'sunIntensity', value: parseFloat(sunIntensity) });
-    // });
+    $('#sun-intensity-slider').on('input change', function() {
+      var sunIntensity = $(this).val();
+      interactive.post('set', { name: 'sunIntensity', value: parseFloat(sunIntensity) });
+    });
 
     $('#ke-shading-checkbox').on('input change', function() {
       var keShading = $(this).is(':checked');
